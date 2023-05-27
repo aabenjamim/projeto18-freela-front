@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import GlobalStyle from './style/GlobalStyle'
-import Home from "./pages/Home";
-import Passagens from "./pages/Passagens";
-import Hospedagens from "./pages/Hospedagens";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Hospedagens from "./pages/Hospedagens/Hospedagens";
+import Passagens from "./pages/Passagens/Passagens";
+import GlobalStyle from './style/GlobalStyle';
 
 function App() {
   return (
@@ -13,7 +13,6 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/passagens" element={<Passagens/>}/>
         <Route path="/hospedagens" element={<Hospedagens/>}/>
-        <Route path="" element="" />
       </Routes>
     </BrowserRouter>
     </>
