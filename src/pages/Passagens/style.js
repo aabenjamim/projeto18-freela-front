@@ -42,6 +42,7 @@ export const CaixaEsquerda = styled.div`
             outline: none;
             box-shadow: none;
         }
+        option:checked
     }
     div{
         margin-bottom: auto;
