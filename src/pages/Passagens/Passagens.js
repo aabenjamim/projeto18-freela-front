@@ -1,152 +1,88 @@
-import Topo from '../../components/Topo'
-import {Container, Formulario, Input, CaixaEsquerda, CaixaDireita, Option,
-Data, Select, EsqSelect, DirSelect, MeioSelect, CaixaBusca, Lupa, Preco} from './style'
-import { useEffect, useState } from "react"
-import apiPassagens from '../../services/passagens'
+import apiPassagens from "../../services/passagens";
+import Topo from "../../components/Topo";
+import { DadosContext } from '../../context/DadosContext'
+import { useEffect, useState , useContext} from "react";
+import styled from "styled-components";
 
 
 export default function Passagens(){
 
-    const [estados, setEstados] = useState([])
-    const [origens, setOrigens] = useState([])
-    const [destinos, setDestinos] = useState([])
+    const {dadosViagem} = useContext(DadosContext)
+    const [passagens, setPassagens] = useState([])
 
-
-    function estadosLista(){
-        apiPassagens.getEstados()
+    useEffect(()=>{
+        apiPassagens.getPassagens(dadosViagem)
         .then(res=>{
-          console.log(res.data)
-          setEstados(res.data)
+            setPassagens(res.data)
+            console.log(dadosViagem)
         })
         .catch(err=>{
-          console.log(err)
+            console.log(err)
         })
-    }
-
-    function origensLista(){
-        apiPassagens.getOrigens()
-        .then(res=>{
-          console.log(res.data)
-          setOrigens(res.data)
-        })
-        .catch(err=>{
-          console.log(err)
-        })
-    }
-
-    function destinosLista(){
-        apiPassagens.getDestinos()
-        .then(res=>{
-          console.log(res.data)
-          setDestinos(res.data)
-        })
-        .catch(err=>{
-          console.log(err)
-        })
-    }
-
-    useEffect(estadosLista)
-    useEffect(origensLista)
-    useEffect(destinosLista)
+    }, [])
 
     return(
-        <Container>
+        <>
             <Topo/>
-            <Formulario>
-                <Input>
-                    <CaixaEsquerda>
-                        <div>
-                            <p>ESTADO DE ORIGEM</p>
-                        </div>
-                        <select>
-                            <Option value="">SELECIONE UM ESTADO</Option>
-                            {estados.map(e=>
-                                <Option value="nome-estado">{e.nome}</Option>
-                            )}
-                        </select>
-                    </CaixaEsquerda>
-                    <CaixaDireita>
-                        <div>
-                            <p>CIDADE DE ORIGEM</p>
-                        </div>
-                        <select>
-                            <Option value="">SELECIONE UMA CIDADE</Option>
-                            {origens.map(o=>
-                                <Option value="nome-origem">{o.nome}</Option>
-                            )}
-                        </select>
-                    </CaixaDireita>
-                </Input>
-                <Input>
-                    <CaixaEsquerda>
-                        <div>
-                            <p>ESTADO DE DESTINO</p>
-                        </div>
-                        <select>
-                            <Option value="">SELECIONE UM ESTADO</Option>
-                            {estados.map(e=>
-                                <Option value="nome-estado">{e.nome}</Option>
-                            )}
-                        </select>
-                    </CaixaEsquerda>
-                    <CaixaDireita>
-                        <div>
-                            <p>CIDADE DE DESTINO</p>
-                        </div>
-                        <select>
-                            <Option value="">SELECIONE UMA CIDADE</Option>
-                            {destinos.map(d=>
-                                <Option value="nome-destino">{d.nome}</Option>
-                            )}
-                        </select>
-                    </CaixaDireita>
-                </Input>
-                <Data>
-                    <div>
-                        <p>DATA DA VIAGEM</p>
-                    </div>
-                    <Select>
-                        <EsqSelect>
-                            <Option value="">DIA</Option>
-                            <Option value="nome1">Nome 1</Option>
-                            <Option value="nome2">Nome 2</Option>
-                            <Option value="nome3">Nome 3</Option>
-                            <Option value="nome4">Nome 4</Option>
-                        </EsqSelect>
-                        <MeioSelect>
-                            <Option value="">MÊS</Option>
-                            <Option value="nome1">Nome 1</Option>
-                            <Option value="nome2">Nome 2</Option>
-                            <Option value="nome3">Nome 3</Option>
-                            <Option value="nome4">Nome 4</Option>
-                        </MeioSelect>
-                        <DirSelect>
-                            <Option value="">ANO</Option>
-                            <Option value="nome1">Nome 1</Option>
-                            <Option value="nome2">Nome 2</Option>
-                            <Option value="nome3">Nome 3</Option>
-                            <Option value="nome4">Nome 4</Option>
-                        </DirSelect>
-                    </Select>
-                </Data>
-                <CaixaBusca>
-                    <Preco>
-                        <div>
-                            <p>PREÇO MÁXIMO (OPCIONAL)</p>
-                        </div>
-                        <select>
-                            <Option value="">SELECIONE UMA CIDADE</Option>
-                            <Option value="nome1">Nome 1</Option>
-                            <Option value="nome2">Nome 2</Option>
-                            <Option value="nome3">Nome 3</Option>
-                            <Option value="nome4">Nome 4</Option>
-                        </select>
-                    </Preco>
-                    <Lupa>
-                        <ion-icon name="search-sharp"></ion-icon>
-                    </Lupa>
-                </CaixaBusca>
-            </Formulario>
-        </Container>
-    )
+            <Dados>
+                <Geral>
+                    <p>Campinas, SP</p>
+                    <ion-icon name="airplane"></ion-icon>
+                    <p>Fortaleza, CE</p>
+                </Geral>
+                <Linha></Linha>
+                <Geral>
+                    <ion-icon name="calendar"></ion-icon>
+                    <p>28/08/2023</p>
+                </Geral>
+                <Linha></Linha>
+                <Geral>
+                    <p>ATÉ R$ 250</p>
+                </Geral>
+            </Dados>
+            <Exibir>
+
+            </Exibir>
+        </>  
+        )
 }
+
+const Dados = styled.div`
+    width: 100vw;
+    height: 50px;
+    background-image: linear-gradient(to right, #095B4E, #26A28E);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+`
+const Linha = styled.div`
+    width: 2px;
+    height: 25px;
+    background-color: #FFFFFF;
+`
+const Geral = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    p{
+        color: #FFFFFF;
+        font-size: 18px;
+    }
+    ion-icon{
+        color: #FFFFFF;
+        font-size: 18px;  
+    }
+`
+const Data = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+const Exibir = styled.div`
+    background-color: #9CD1C9;
+    width: 100vw;
+    height: calc(100vh - 120px);
+`

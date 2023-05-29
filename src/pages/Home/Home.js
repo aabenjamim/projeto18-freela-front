@@ -10,7 +10,7 @@ export default function Home(){
                 <img src={logo} alt='logo'/>
             </Logo>
             <Menu>
-                <StyledLink to={'/passagens'}>
+                <StyledLink to={'/busca-passagens'}>
                     <Botao>
                         <ion-icon name="airplane"></ion-icon>
                         <div>
@@ -18,7 +18,7 @@ export default function Home(){
                         </div>
                     </Botao>
                 </StyledLink>
-                <StyledLink to={'/hospedagens'}>
+                <StyledLink to={'/busca-hospedagens'}>
                     <Botao>
                         <ion-icon name="home"></ion-icon>
                         <div>

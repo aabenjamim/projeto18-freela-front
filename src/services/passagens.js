@@ -15,5 +15,11 @@ function getDestinos(){
   return promise
 }
 
-const apiPassagens = {getEstados, getOrigens, getDestinos}
+function getPassagens(params){
+  const promise = axios.get(`${process.env.REACT_APP_API_URL}/passagens`, {params})
+  return promise
+}
+
+
+const apiPassagens = {getEstados, getOrigens, getDestinos, getPassagens}
 export default apiPassagens

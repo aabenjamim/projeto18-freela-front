@@ -9,9 +9,9 @@ export default function Topo(){
             <div>
                 <StyledLink to={'/'}>HOME</StyledLink>
                 <ion-icon name="play"></ion-icon>
-                <StyledLink to={'/passagens'}>PASSAGENS</StyledLink>
+                <StyledLink to={'/busca-passagens'}>PASSAGENS</StyledLink>
                 <ion-icon name="play"></ion-icon>
-                <StyledLink to={'/hospedagens'}>HOSPEDAGENS</StyledLink>
+                <StyledLink to={'/busca-hospedagens'}>HOSPEDAGENS</StyledLink>
             </div>
         </Container>
     )
