@@ -139,7 +139,7 @@ export default function BuscaHospedagens(){
                         <Valor value={valorMaximo} type="text" placeholder='DIGITE UM VALOR MÁXIMO'
                         onChange={e => setValorMaximo(e.target.value)}/>
                     </Preco>
-                    <Lupa className={!selecaoCompleta ? "desabilitado" : ""} OnClick={busca()}>
+                    <Lupa className={!selecaoCompleta ? "desabilitado" : ""} onClick={busca}>
                         <ion-icon name="search-sharp"></ion-icon>
                     </Lupa>
                 </CaixaBusca>

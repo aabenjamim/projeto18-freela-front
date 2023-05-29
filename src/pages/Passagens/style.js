@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const Imagem = styled.img`
   position: absolute;
   width: 180px;
-  top: 500px;
+  top: 480px;
   right: 50px;
 `
 
