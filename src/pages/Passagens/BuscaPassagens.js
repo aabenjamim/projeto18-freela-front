@@ -1,10 +1,11 @@
 import Topo from '../../components/Topo'
-import {Container, Formulario, Input, CaixaEsquerda, CaixaDireita, Option,
+import {Container, Formulario, Input, CaixaEsquerda, CaixaDireita, Option, Imagem,
 Data, Select, EsqSelect, DirSelect, MeioSelect, CaixaBusca, Lupa, Preco, Valor} from './style'
 import { useEffect, useState, useContext } from "react"
 import apiPassagens from '../../services/passagens'
 import { DadosContext } from '../../context/DadosContext'
 import { useNavigate } from "react-router-dom"
+import logoAviao from "../../assets/LogoAviao.svg"
 
 
 export default function BuscaPassagens(){
@@ -21,6 +22,8 @@ export default function BuscaPassagens(){
     const [valorMes, setValorMes] = useState("")
     const [valorAno, setValorAno] = useState("")
     const {setDadosViagem} = useContext(DadosContext)
+    const [selecaoCompleta, setSelecaoCompleta] = useState(false);
+
 
     const navigate = useNavigate()
 
@@ -54,9 +57,10 @@ export default function BuscaPassagens(){
         })
     }
 
-    useEffect(()=>estadosLista)
-    useEffect(()=>origensLista)
-    useEffect(()=>destinosLista)
+    useEffect(() => estadosLista(), []);
+    useEffect(() => origensLista(), []);
+    useEffect(() => destinosLista(), []);
+    
 
     function renderOptionsDia(){
         const options = [];
@@ -73,6 +77,29 @@ export default function BuscaPassagens(){
           <Option key={index} value={mes}>{mes}</Option>
         ))
     }
+
+    function verificarSelecaoCompleta() {
+        if (valorEstadoOrigem !== "" && valorEstadoDestino !== "" &&
+         valorCidadeOrigem !== "" && valorCidadeDestino !== "") {
+          setSelecaoCompleta(true);
+        } else {
+          setSelecaoCompleta(false);
+        }
+      }
+      
+    useEffect(() => verificarSelecaoCompleta(), [valorEstadoOrigem, valorEstadoDestino,
+        valorCidadeOrigem, valorCidadeDestino]);
+
+    function handleMes(e){
+        const valor = e.target.value
+        for(let i=0;i<meses.length; i++){
+            if(valor===meses[i] && i<9){
+                setValorMes(`0${i+1}`)
+            } else if(valor===meses[i] && i>=9){
+                setValorMes(`${i+1}`)
+            }
+        }
+    }
     
     function renderOptionsAno(){
         const anos = [];
@@ -83,25 +110,37 @@ export default function BuscaPassagens(){
     }
 
     function busca(){
-        for(let i=0;i<meses.length; i++){
-            if(valorMes===meses[i] && i<9){
-                setValorMes(`0${i+1}`)
-            } else if(valorMes===meses[i] && i>=9){
-                setValorMes(`${i+1}`)
+    if (selecaoCompleta) {
+        if(valorMaximo){
+            const params ={
+                estadoOrigem: valorEstadoOrigem,
+                estadoDestino: valorEstadoDestino,
+                cidadeOrigem: valorCidadeOrigem,
+                cidadeDestino: valorCidadeDestino,
+                dia: valorDia,
+                mes: valorMes,
+                ano: valorAno,
+                valorMaximo: valorMaximo*100}
+        
+                setDadosViagem(params)
+                navigate("/passagens")
+        
+        }  else{
+            const params ={
+                estadoOrigem: valorEstadoOrigem,
+                estadoDestino: valorEstadoDestino,
+                cidadeOrigem: valorCidadeOrigem,
+                cidadeDestino: valorCidadeDestino,
+                dia: valorDia,
+                mes: valorMes,
+                ano: valorAno
+            }
+        
+                setDadosViagem(params)
+                navigate("/passagens")
+        
             }
         }
-       const params ={
-        estadoOrigem: valorEstadoOrigem,
-        estadoDestino: valorEstadoDestino,
-        cidadeOrigem: valorCidadeOrigem,
-        cidadeDestino: valorCidadeDestino,
-        dia: valorDia,
-        mes: valorMes,
-        ano: valorAno,
-        valorMaximo: valorMaximo}
-
-        setDadosViagem(params)
-        navigate("/passagens")
     }
 
     return(
@@ -165,7 +204,7 @@ export default function BuscaPassagens(){
                             <Option value="">DIA</Option>
                             {renderOptionsDia()}
                         </EsqSelect>
-                        <MeioSelect onChange={event => setValorMes(event.target.value)}>
+                        <MeioSelect onChange={event => handleMes(event)}>
                             <Option value="">MÊS</Option>
                             {renderOptionsMes()}
                         </MeioSelect>
@@ -183,11 +222,12 @@ export default function BuscaPassagens(){
                         <Valor value={valorMaximo} type="text" placeholder='DIGITE UM VALOR MÁXIMO'
                         onChange={e => setValorMaximo(e.target.value)}/>
                     </Preco>
-                    <Lupa onClick={busca}>
+                    <Lupa onClick={busca} className={!selecaoCompleta ? "desabilitado" : ""}>
                         <ion-icon name="search-sharp"></ion-icon>
                     </Lupa>
                 </CaixaBusca>
             </Formulario>
+            <Imagem src={logoAviao}/>
         </Container>
     )
 }

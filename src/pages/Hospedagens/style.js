@@ -24,111 +24,11 @@ export const Formulario = styled.div`
   padding: 3%;
 `;
 
-export const Input = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 500px;
-  background-color: #DF8612;
-  border-radius: 15px;
-`;
-
-export const CaixaEsquerda = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
-  box-sizing: border-box;
-
-  select {
-    margin-top: auto;
-    height: 50px;
-    width: 100%;
-    border-bottom-left-radius: 15px;
-    border: none;
-    color: #969696;
-    font-size: 16px;
-    padding: 5%;
-
-    &:focus {
-      outline: none;
-      box-shadow: none;
-    }
-
-    option:checked {
-      color: #969696;
-      font-size: 16px;
-    }
-
-    ${(props) =>
-      props.selectedOption &&
-      css`
-        background-color: #9CD1C9;
-      `}
-  }
-
-  div {
-    margin-bottom: auto;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    font-size: 18px;
-    align-items: center;
-    color: #FFFFFF;
-  }
-`;
-
-export const CaixaDireita = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
-
-  select {
-    margin-top: auto;
-    height: 50px;
-    width: 100%;
-    border-bottom-right-radius: 15px;
-    border: none;
-    background-color: #EDEDED;
-    color: #969696;
-    font-size: 16px;
-    padding: 5%;
-
-    &:focus {
-      outline: none;
-      box-shadow: none;
-    }
-
-    option:checked {
-      color: #969696;
-      font-size: 16px;
-    }
-
-    ${(props) =>
-      props.selectedOption &&
-      css`
-        background-color: #9CD1C9;
-      `}
-  }
-
-  div {
-    margin-bottom: auto;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    font-size: 18px;
-    align-items: center;
-    color: #FFFFFF;
-  }
-`;
 
 export const Option = styled.option`
   background-color: #EDEDED;
   color: #969696;
   font-size: 18px;
-
   &:hover {
     background-color: #9CD1C9;
   }
@@ -178,11 +78,11 @@ export const Select = styled.div`
       font-size: 16px;
     }
 
-    ${(props) =>
-      props.selectedOption &&
-      css`
+    select option:checked {
         background-color: #9CD1C9;
-      `}
+        color: #969696;
+        font-size: 16px;
+    }
   }
 
   option {
@@ -196,18 +96,10 @@ export const Select = styled.div`
   }
 `;
 
-export const EsqSelect = styled.select`
-  width: 20%;
-  border-bottom-left-radius: 15px;
-`;
-
-export const DirSelect = styled.select`
-  width: 25%;
-  border-bottom-right-radius: 15px;
-`;
-
 export const MeioSelect = styled.select`
-  width: 55%;
+  width: 100%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 `;
 
 export const Preco = styled.div`
@@ -234,11 +126,11 @@ export const Preco = styled.div`
       box-shadow: none;
     }
 
-    ${(props) =>
-      props.selectedOption &&
-      css`
+    select option:checked {
         background-color: #9CD1C9;
-      `}
+        color: #969696;
+        font-size: 16px;
+    }
   }
 
   option {

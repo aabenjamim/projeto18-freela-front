@@ -3,7 +3,9 @@ import Topo from "../../components/Topo";
 import { DadosContext } from '../../context/DadosContext'
 import { useEffect, useState , useContext} from "react";
 import styled from "styled-components";
-
+import azul from "../../assets/Azul.svg"
+import gol from "../../assets/Gol.svg"
+import latam from "../../assets/Latam.svg"
 
 export default function Passagens(){
 
@@ -14,36 +16,64 @@ export default function Passagens(){
         apiPassagens.getPassagens(dadosViagem)
         .then(res=>{
             setPassagens(res.data)
-            console.log(dadosViagem)
         })
         .catch(err=>{
             console.log(err)
         })
     }, [])
 
+    console.log(passagens)
+    console.log(dadosViagem)
+
     return(
-        <>
+        <Container>
             <Topo/>
             <Dados>
                 <Geral>
-                    <p>Campinas, SP</p>
+                    <p>{dadosViagem.cidadeOrigem}, {dadosViagem.estadoOrigem}</p>
                     <ion-icon name="airplane"></ion-icon>
-                    <p>Fortaleza, CE</p>
+                    <p>{dadosViagem.cidadeDestino}, {dadosViagem.estadoDestino}</p>
                 </Geral>
-                <Linha></Linha>
-                <Geral>
-                    <ion-icon name="calendar"></ion-icon>
-                    <p>28/08/2023</p>
-                </Geral>
-                <Linha></Linha>
-                <Geral>
-                    <p>ATÉ R$ 250</p>
-                </Geral>
-            </Dados>
-            <Exibir>
+                {dadosViagem.dia?                 
+                <><Linha></Linha><Geral>
+                        <ion-icon name="calendar"></ion-icon>
+                        <p>28/08/2023</p>
+                    </Geral></> :  <><Linha></Linha><Geral>
+                        <ion-icon name="calendar"></ion-icon>
+                        <p>DATAS DISPONÍVEIS</p>
+                    </Geral></> }
 
-            </Exibir>
-        </>  
+                {dadosViagem.valorMaximo?                 
+                <> <Linha></Linha>
+                <Geral>
+                    <p>ATÉ R$ {dadosViagem.valorMaximo/100}</p>
+                </Geral></> : <> <Linha></Linha>
+                <Geral>
+                    <p>TODOS OS VALORES</p>
+                </Geral></>  }
+            </Dados>
+            <Viagens>
+                {passagens.map(p=>
+                    <Passagem className={p.companhia.toLowerCase()}>
+                        <Preco>R$ {(p.preco)/100}</Preco>
+                        <Infos>
+                            <LinhaH></LinhaH>
+                                <Hora>
+                                    <ion-icon name="time-outline"></ion-icon>
+                                    <p>{p.horarioPartida} - {p.horarioChegada}</p>
+                                </Hora>
+                                <Hora>
+                                    <ion-icon name="calendar"></ion-icon>
+                                    <p>{p.dataPartida}</p>
+                                </Hora>
+                            <LinhaH></LinhaH>                    
+                        </Infos>
+                        <img src={p.companhia === 'AZUL' ? azul : 
+                        p.companhia === 'GOL' ? gol : latam} alt="Companhia Aérea" />
+                    </Passagem>
+                )}
+            </Viagens>
+        </Container>  
         )
 }
 
@@ -81,8 +111,73 @@ const Data = styled.div`
     display: flex;
     flex-direction: row;
 `
-const Exibir = styled.div`
+const Container = styled.div`
     background-color: #9CD1C9;
     width: 100vw;
-    height: calc(100vh - 120px);
+    height: 100vh;
+`
+const Passagem = styled.div`
+    background-color: #FFFFFF;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    padding-bottom: 130px;
+    position: relative;
+    &.azul{
+        img{
+            position: absolute;
+            top: 95px;
+        }
+    }
+    &.gol{
+        img{
+            position: absolute;
+            top: 140px;
+            width: 120px;
+        }
+    }
+    &.latam{
+        img{
+            position: absolute;
+            top: 150px;
+            width: 155px;
+        }
+    }
+`
+const Preco = styled.h1`
+    font-family: Calister;
+    font-size: 45px;
+    margin-bottom: 5px;
+    color: #16695C;
+`
+const Hora = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #16695C;
+    font-size: 18px;
+    height: 25px;
+`
+
+const Viagens = styled.div`
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+`
+const LinhaH = styled.div`
+    width: 140px;
+    height: 1px;
+    background-color: #16695C;
+`
+const Infos = styled.div`
+    height: 0px;
 `
