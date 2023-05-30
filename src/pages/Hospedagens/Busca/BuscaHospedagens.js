@@ -1,11 +1,11 @@
-import Topo from '../../components/Topo'
+import Topo from '../../../components/Topo'
 import {Container, Formulario, Option, Imagem,
 Data, Select,MeioSelect, CaixaBusca, Lupa, Preco, Valor} from './style'
 import { useEffect, useState, useContext } from "react"
-import apiPassagens from '../../services/passagens'
-import { DadosContext } from '../../context/DadosContext'
+import api from '../../../services/services'
+import { DadosContext } from '../../../context/DadosContext'
 import { useNavigate } from "react-router-dom"
-import logoAviao from "../../assets/LogoAviao.svg"
+import logoAviao from "../../../assets/LogoAviao.svg"
 
 
 export default function BuscaHospedagens(){
@@ -22,7 +22,7 @@ export default function BuscaHospedagens(){
     const navigate = useNavigate()
 
     function estadosLista(){
-        apiPassagens.getEstados()
+        api.getEstados()
         .then(res=>{
           setEstados(res.data)
         })
@@ -32,7 +32,7 @@ export default function BuscaHospedagens(){
     }
 
     function destinosLista() {
-        apiPassagens.getDestinos()
+        api.getDestinos()
         .then(res => {
             setDestinos(res.data);
         if (valorEstadoDestino !== "" && valorCidadeDestino !== "") {
@@ -65,8 +65,8 @@ export default function BuscaHospedagens(){
     if (selecaoCompleta) {
         if(valorMaximo){
             const params ={
-                estadoDestino: valorEstadoDestino,
-                cidadeDestino: valorCidadeDestino,
+                estado: valorEstadoDestino,
+                cidade: valorCidadeDestino,
                 valorMaximo: valorMaximo*100}
         
                 setDadosHospedagem(params)
@@ -74,8 +74,8 @@ export default function BuscaHospedagens(){
         
         }  else{
             const params ={
-                estadoDestino: valorEstadoDestino,
-                cidadeDestino: valorCidadeDestino,
+                estado: valorEstadoDestino,
+                cidade: valorCidadeDestino,
             }
         
                 setDadosHospedagem(params)

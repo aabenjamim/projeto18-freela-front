@@ -44,6 +44,7 @@ export const CaixaEsquerda = styled.div`
     height: 50px;
     width: 100%;
     border-bottom-left-radius: 15px;
+    background-color: #EDEDED;
     border: none;
     color: #969696;
     font-size: 16px;

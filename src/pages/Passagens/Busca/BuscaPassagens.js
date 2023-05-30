@@ -1,11 +1,11 @@
-import Topo from '../../components/Topo'
+import Topo from '../../../components/Topo'
 import {Container, Formulario, Input, CaixaEsquerda, CaixaDireita, Option, Imagem,
 Data, Select, EsqSelect, DirSelect, MeioSelect, CaixaBusca, Lupa, Preco, Valor} from './style'
 import { useEffect, useState, useContext } from "react"
-import apiPassagens from '../../services/passagens'
-import { DadosContext } from '../../context/DadosContext'
+import api from '../../../services/services'
+import { DadosContext } from '../../../context/DadosContext'
 import { useNavigate } from "react-router-dom"
-import logoAviao from "../../assets/LogoAviao.svg"
+import logoAviao from "../../../assets/LogoAviao.svg"
 
 
 export default function BuscaPassagens(){
@@ -28,7 +28,7 @@ export default function BuscaPassagens(){
     const navigate = useNavigate()
 
     function estadosLista(){
-        apiPassagens.getEstados()
+        api.getEstados()
         .then(res=>{
           setEstados(res.data)
         })
@@ -38,7 +38,7 @@ export default function BuscaPassagens(){
     }
 
     function origensLista(){
-        apiPassagens.getOrigens()
+        api.getOrigens()
         .then(res=>{
           setOrigens(res.data)
         })
@@ -48,7 +48,7 @@ export default function BuscaPassagens(){
     }
 
     function destinosLista(){
-        apiPassagens.getDestinos()
+        api.getDestinos()
         .then(res=>{
           setDestinos(res.data)
         })

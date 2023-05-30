@@ -20,6 +20,16 @@ function getPassagens(params){
   return promise
 }
 
+function getHospedagens(params){
+  const promise = axios.get(`${process.env.REACT_APP_API_URL}/hospedagens`, {params})
+  return promise
+}
 
-const apiPassagens = {getEstados, getOrigens, getDestinos, getPassagens}
-export default apiPassagens
+function getHospedagensById(id){
+  const promise = axios.get(`${process.env.REACT_APP_API_URL}/hospedagens/${id}`)
+  return promise
+}
+
+
+const api = {getEstados, getOrigens, getDestinos, getPassagens, getHospedagens, getHospedagensById}
+export default api

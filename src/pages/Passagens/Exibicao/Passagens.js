@@ -1,11 +1,12 @@
-import apiPassagens from "../../services/passagens";
-import Topo from "../../components/Topo";
-import { DadosContext } from '../../context/DadosContext'
+import api from "../../../services/services";
+import Topo from "../../../components/Topo";
+import { DadosContext } from '../../../context/DadosContext'
 import { useEffect, useState , useContext} from "react";
-import styled from "styled-components";
-import azul from "../../assets/Azul.svg"
-import gol from "../../assets/Gol.svg"
-import latam from "../../assets/Latam.svg"
+import azul from "../../../assets/Azul.svg"
+import gol from "../../../assets/Gol.svg"
+import latam from "../../../assets/Latam.svg"
+import {Dados, Linha , Geral, Container , Passagem,
+     Preco , Hora, Viagens, LinhaH, Infos} from "./style"
 
 export default function Passagens(){
 
@@ -13,7 +14,7 @@ export default function Passagens(){
     const [passagens, setPassagens] = useState([])
 
     useEffect(()=>{
-        apiPassagens.getPassagens(dadosViagem)
+        api.getPassagens(dadosViagem)
         .then(res=>{
             setPassagens(res.data)
         })
@@ -76,108 +77,3 @@ export default function Passagens(){
         </Container>  
         )
 }
-
-const Dados = styled.div`
-    width: 100vw;
-    height: 50px;
-    background-image: linear-gradient(to right, #095B4E, #26A28E);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    gap: 30px;
-`
-const Linha = styled.div`
-    width: 2px;
-    height: 25px;
-    background-color: #FFFFFF;
-`
-const Geral = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    p{
-        color: #FFFFFF;
-        font-size: 18px;
-    }
-    ion-icon{
-        color: #FFFFFF;
-        font-size: 18px;  
-    }
-`
-const Data = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-const Container = styled.div`
-    background-color: #9CD1C9;
-    width: 100vw;
-    height: 100vh;
-`
-const Passagem = styled.div`
-    background-color: #FFFFFF;
-    width: 200px;
-    height: 200px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    box-sizing: border-box;
-    padding-bottom: 130px;
-    position: relative;
-    &.azul{
-        img{
-            position: absolute;
-            top: 95px;
-        }
-    }
-    &.gol{
-        img{
-            position: absolute;
-            top: 140px;
-            width: 120px;
-        }
-    }
-    &.latam{
-        img{
-            position: absolute;
-            top: 150px;
-            width: 155px;
-        }
-    }
-`
-const Preco = styled.h1`
-    font-family: Calister;
-    font-size: 45px;
-    margin-bottom: 5px;
-    color: #16695C;
-`
-const Hora = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    color: #16695C;
-    font-size: 18px;
-    height: 25px;
-`
-
-const Viagens = styled.div`
-    padding: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-`
-const LinhaH = styled.div`
-    width: 140px;
-    height: 1px;
-    background-color: #16695C;
-`
-const Infos = styled.div`
-    height: 0px;
-`
