@@ -105,3 +105,15 @@ export const LinhaH = styled.div`
 export const Infos = styled.div`
     height: 0px;
 `
+export const Vazio = styled.p`
+    background-color: white;
+    width: 280px;
+    height: 80px;
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 15px;
+    color: #16695C;
+`

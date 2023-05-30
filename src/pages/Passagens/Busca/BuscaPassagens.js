@@ -125,7 +125,7 @@ export default function BuscaPassagens(){
                 setDadosViagem(params)
                 navigate("/passagens")
         
-        }  else{
+        }  else if(valorDia && valorMes && valorAno){
             const params ={
                 estadoOrigem: valorEstadoOrigem,
                 estadoDestino: valorEstadoDestino,
@@ -139,6 +139,16 @@ export default function BuscaPassagens(){
                 setDadosViagem(params)
                 navigate("/passagens")
         
+            } else{
+                const params ={
+                    estadoOrigem: valorEstadoOrigem,
+                    estadoDestino: valorEstadoDestino,
+                    cidadeOrigem: valorCidadeOrigem,
+                    cidadeDestino: valorCidadeDestino
+                }
+            
+                    setDadosViagem(params)
+                    navigate("/passagens")
             }
         }
     }
